@@ -1,8 +1,10 @@
 - hosts: nodes
 - name: Register as user with password  and autosubscribe to available content.
+  remote_user: root
 
-  redhat_subscription:
-    state: present
-    username: jorge.arevalo@amauta.com.mx
-    password: 51McPassw0rd
-    auto_attach: true
+  tasks: 
+  - redhat_subscription:
+      state: present
+      username: jorge.arevalo@amauta.com.mx
+      password: 51McPassw0rd
+      auto_attach: true
