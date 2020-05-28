@@ -1,8 +1,9 @@
 - name: Register as user with password  and autosubscribe to available content.
   hosts: all
   remote_user: root
-
+# https://docs.ansible.com/ansible/latest/modules/redhat_subscription_module.html
   tasks: 
+  
   - redhat_subscription:
       state: present
       username: jorge.arevalo@amauta.com.mx
