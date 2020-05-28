@@ -1,5 +1,5 @@
 - name: Register as user with password  and autosubscribe to available content.
-- hosts: all
+  hosts: all
   remote_user: root
 
   tasks: 
