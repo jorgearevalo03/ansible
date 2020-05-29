@@ -6,8 +6,8 @@
   
   - redhat_subscription:
       state: present
-      username: jorge.arevalo@amauta.com.mx
-      password: 51McPassw0rd
+        username: "{{ rhsmuser }}"
+        password: "{{ rhsmpasswd }}"
       # auto_attach: true
       # Pool ID:             8a85f99a710f3ae9017173aa6008424d
       pool_ids: 8a85f99a710f3ae9017173aa6008424d
