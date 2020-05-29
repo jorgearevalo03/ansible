@@ -8,6 +8,7 @@
       state: present
         username: "{{ rhsmuser }}"
         password: "{{ rhsmpasswd }}"
+# bcb4c0565ba9982fac0b3d727bcb437e72b081b3
       # auto_attach: true
       # Pool ID:             8a85f99a710f3ae9017173aa6008424d
       pool_ids: 8a85f99a710f3ae9017173aa6008424d
