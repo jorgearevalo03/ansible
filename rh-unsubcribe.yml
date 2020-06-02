@@ -1,4 +1,4 @@
-- name: Register as user with password  and autosubscribe to available content.
+- name: UNRegister 
   hosts: all
   remote_user: root
 # https://docs.ansible.com/ansible/latest/modules/redhat_subscription_module.html
