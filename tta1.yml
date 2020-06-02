@@ -15,9 +15,9 @@
       name: httpie
       state: latest
   - name: install HAProxy
-      package:
+    package:
       name: haproxy
-      state: latest
+      state: latestx
   - name: enable HAProxy
     service:
       name: haproxy
