@@ -1,13 +1,48 @@
-- name: Register as user with password  and autosubscribe to available content.
+---
+ name: Register as user with password and autosubscribe to available content.
   hosts: all
   remote_user: root
+
 # https://docs.ansible.com/ansible/latest/modules/redhat_subscription_module.html
-  tasks: 
-  
-  - redhat_subscription:
+  tasks:
+  - name: Registro de subscripcion
+    redhat_subscription:
       state: present
-      username: jorge.arevalo@amauta.com.mx
-      password: 51McPassw0rd
-      # auto_attach: true
-      # Pool ID:             8a85f99a710f3ae9017173aa6008424d
+      username: "{{ rhsmuser }}"
+      password: "{{ rhsmpasswd }}"
+#      auto_attach: true
+#      pool_ids: 8a85f99a710f3ae9017173aa6008424d
+#      pool: 8a85f99a710f3ae9017173aa6008424d
+#      subscription-manager register --username jorge.arevalo@amauta.com.mx --password 51McPassw0rd attach --pool=8a85f99a710f3ae9017173aa6008424d
+  - name: Pool Attach
+    redhat_subscription:
+      state: present
+      username: "{{ rhsmuser }}"
+      password: "{{ rhsmpasswd }}"
       pool_ids: 8a85f99a710f3ae9017173aa6008424d
+
+# subscription-manager attach --pool=8a85f99a710f3ae9017173aa6008424d
+  - name: Enable Repos.
+    shell: |
+            subscription-manager repos --disable=*
+            subscription-manager repos --enable={{ repobase }} --enable={{ reposcl }} --enable={{ repoextras }}
+    when:  ansible_os_family == "RedHat" and ansible_distribution_major_version|int >= 7
+
+# https://docs.ansible.com/ansible/latest/modules/get_url_module.html
+  - name: Download EPEL
+    get_url:
+      url: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      dest: /tmp/epel-release-latest-7.noarch.rpm
+      mode: '0440'
+
+# https://docs.ansible.com/ansible/latest/modules/yum_module.html
+  - name: Install EPEL rpm from a local file
+    yum:
+      name: /tmp/epel-release-latest-7.noarch.rpm
+      state: present
+
+  - name: Ensure EPEL is enabled
+    yum:
+      name: epel-release
+      state: present
+...
