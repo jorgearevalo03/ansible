@@ -19,7 +19,7 @@
     package:
       name: haproxy
       enablerepo: "epel,rhel-7-server-e4s-rpms,rhel-7-server-e4s-optional-rpms"
-      state: latestx
+      state: latest
       
   - name: enable HAProxy
     service:
