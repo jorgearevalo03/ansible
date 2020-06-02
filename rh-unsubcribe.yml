@@ -3,8 +3,14 @@
   remote_user: root
 # https://docs.ansible.com/ansible/latest/modules/redhat_subscription_module.html
   tasks: 
-  
-  - redhat_subscription:
+
+  - name:  Desactiva Repositorios
+    shell: |
+            subscription-manager repos --disable=*  
+            subscription-manager unsubscribe --all  
+
+  - name: Elimina subscripcion
+    redhat_subscription:
       state: absent
 
 
