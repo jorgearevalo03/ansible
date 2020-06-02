@@ -4,6 +4,7 @@ rhsmpasswd:
 rhsmpoolid: 8a85f98c6218ed59016219b996a7084e
 # Repos
 repobase: rhel-7-server-rpms
+repoextra: rhel-7-server-extras-rpms
 reposcl: rhel-server-rhscl-7-rpms
 reposat: rhel-7-server-satellite-6.3-rpms
 # Variables para Satellite Server
