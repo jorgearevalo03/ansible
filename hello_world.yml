@@ -3,5 +3,5 @@
   tasks:
     - name: Hello Message
       debug:
-        msg: "Hello World! {{ rhsmuser }} "
+        msg: "Hello  {{ rhsmuser }} {{ rhsmpoolid }} "
 
