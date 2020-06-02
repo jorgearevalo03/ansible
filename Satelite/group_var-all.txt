@@ -1,6 +1,6 @@
 # Variables para subscription manager (RHSM)
-rhsmuser: jorge.arevalo@amauta.com.mx
-rhsmpasswd: 
+#rhsmuser: jorge.arevalo@amauta.com.mx
+#rhsmpasswd: 
 rhsmpoolid: 8a85f98c6218ed59016219b996a7084e
 # Repos
 repobase: rhel-7-server-rpms
