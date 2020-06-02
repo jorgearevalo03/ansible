@@ -5,7 +5,7 @@
   become: true
 
 - name: Deploy haproxy
-  hosts: frontends
+  hosts: all
   gather_facts: false # remove later! speeds up testing
   become: true
 
