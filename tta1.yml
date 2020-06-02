@@ -4,11 +4,6 @@
   gather_facts: false # remove later! speeds up testing
   become: true
 
-
-rhel-7-server-e4s-rpms         
-rhel-7-server-e4s-optional-rpms
-
-
 - name: Deploy haproxy
   hosts: all
   gather_facts: false # remove later! speeds up testing
@@ -25,10 +20,10 @@ rhel-7-server-e4s-optional-rpms
       name: haproxy
       enablerepo: "epel,rhel-7-server-e4s-rpms,rhel-7-server-e4s-optional-rpms"
       state: latestx
+      
   - name: enable HAProxy
     service:
       name: haproxy
-      enablerepo: "epel,rhel-7-server-e4s-rpms,rhel-7-server-e4s-optional-rpms"
       state: started
   - name: configure haproxy
     template:
@@ -37,7 +32,6 @@ rhel-7-server-e4s-optional-rpms
   - name: restart HAproxy
     service:
       name: haproxy
-      enablerepo: "epel,rhel-7-server-e4s-rpms,rhel-7-server-e4s-optional-rpms"
       state: restarted
 
 ...
