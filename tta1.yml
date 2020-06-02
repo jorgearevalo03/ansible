@@ -15,8 +15,9 @@
       name: httpie
       state: latest
   - name: install HAProxy
-    yum:
-      name=haproxy state=latest
+      package:
+      name: haproxy
+      state: latest
   - name: enable HAProxy
     service:
       name: haproxy
