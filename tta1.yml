@@ -1,0 +1,33 @@
+---
+- name: Three tier app
+  hosts: all
+  gather_facts: false # remove later! speeds up testing
+  become: true
+
+- name: Deploy haproxy
+  hosts: frontends
+  gather_facts: false # remove later! speeds up testing
+  become: true
+
+  tasks:
+  - name: http
+    package:
+      name: httpie
+      state: latest
+  - name: install HAProxy
+    yum:
+      name=haproxy state=latest
+  - name: enable HAProxy
+    service:
+      name: haproxy
+      state: started
+  - name: configure haproxy
+    template:
+      src: ./tta-files/haproxy.cfg.j2
+      dest: /etc/haproxy/haproxy.cfg
+  - name: restart HAproxy
+    service:
+      name: haproxy
+      state: restarted
+
+...
