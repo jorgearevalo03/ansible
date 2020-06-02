@@ -13,7 +13,7 @@
 #      auto_attach: true
 #      pool_ids: 8a85f99a710f3ae9017173aa6008424d
 #      pool: 8a85f99a710f3ae9017173aa6008424d
-#      subscription-manager register --username jorge.arevalo@amauta.com.mx --password 51McPassw0rd attach --pool=8a85f99a710f3ae9017173aa6008424d
+#      subscription-manager register --username jorge.arevalo@amauta.com.mx attach --pool=8a85f99a710f3ae9017173aa6008424d
   - name: Pool Attach
     redhat_subscription:
       state: present
