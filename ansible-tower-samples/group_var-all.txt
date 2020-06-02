@@ -1,0 +1,20 @@
+# Variables para subscription manager (RHSM)
+#rhsmuser: jorge.arevalo@amauta.com.mx
+#rhsmpasswd: 
+rhsmpoolid: 8a85f98c6218ed59016219b996a7084e
+# Repos
+repobase: rhel-7-server-rpms
+reposcl: rhel-server-rhscl-7-rpms
+reposat: rhel-7-server-satellite-6.3-rpms
+# Variables para Satellite Server
+orgsat: Amauta
+locsat: Amauta-HeadQuarters
+adminpasswd: admin
+
+# subscription-manager list --all --available | egrep "Name|Pool"
+# subscription-manager attach --pool={{rhsmpoolid}}
+# subscription-manager repos --disable=*
+# subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-server-rhscl-7-rpms --enable=rhel-7-server-satellite-6.3-rpms
+
+# satellite-installer --scenario satellite --foreman-initial-organization "HEB" --foreman-initial-location "HEBMTY" \
+# --foreman-admin-password "admin" --foreman-proxy-puppetca true --foreman-proxy-tftp true --enable-foreman-plugin-discovery
