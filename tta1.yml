@@ -11,17 +11,17 @@
   tasks:
 
 # https://docs.ansible.com/ansible/2.5/modules/blockinfile_module.html  
-  - name: Add mappings to /etc/hosts
-    blockinfile:
-      path: /etc/hosts
-      block: |
-        {{ item.ip }} {{ item.name }}
-      marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
-    with_items:
-      - { name: appdb1, ip: 192.168.1.132 }
-      - { name: app1, ip: 192.168.1.135 }
-      - { name: app2, ip: 192.168.1.136 }
-      - { name: frontend1, ip: 192.168.1.137 }
+#  - name: Add mappings to /etc/hosts
+#    blockinfile:
+#      path: /etc/hosts
+#      block: |
+#        {{ item.ip }} {{ item.name }}
+#      marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+#    with_items:
+#      - { name: appdb1, ip: 192.168.1.132 }
+#      - { name: app1, ip: 192.168.1.135 }
+#      - { name: app2, ip: 192.168.1.136 }
+#      - { name: frontend1, ip: 192.168.1.137 }
     
   - name: http
     package:

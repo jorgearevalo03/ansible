@@ -88,9 +88,9 @@
       state: started
  
   - name: Firewall Config
-    systemd: 
-      name: firewalld
-      state: started
+#    systemd: 
+#      name: firewalld
+#      state: started
       
     firewalld:
       port: 8080/tcp
