@@ -29,4 +29,19 @@
       file:
         path: /tmp/index.html
         state: absent
+
+- name: Firewall Config
+  - systemd: 
+      name: firewalld
+      state: started
+      
+  - firewalld:
+      port: 80/tcp
+      permanent: true
+      state: disabled
+  - firewalld:
+      port: 8080/tcp
+      permanent: true
+      state: disabled
+      
 ...
