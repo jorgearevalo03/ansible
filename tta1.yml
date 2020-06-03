@@ -46,12 +46,11 @@
     service:
       name: haproxy
       state: restarted
-      
+  
   - name: Firewall config
     systemd: 
       state: started
       name: firewalld
-      
     firewalld:
       port: 80/tcp
       permanent: true
