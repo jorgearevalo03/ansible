@@ -49,8 +49,8 @@
       
   - name: Firewall config
     systemd: 
-      name: firewalld
       state: started
+      name: firewalld
       
     firewalld:
       port: 80/tcp
