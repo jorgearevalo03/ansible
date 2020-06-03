@@ -30,13 +30,13 @@
       state: started
   - name: configure haproxy
     template:
-      src: ./haproxy.cfg.j2
+      src: ./tta-files/haproxy.cfg.j2
       dest: /etc/haproxy/haproxy.cfg
   - name: restart HAproxy
     service:
       name: haproxy
       state: restarted
-
+##### > TTA1
 
 - name: deploy tomcat
   hosts: apps
@@ -60,7 +60,7 @@
 
   - name: copy static index.html to tomcat webapps/ansible/index.html
     template:
-      src: index.html.j2
+      src: ./tta-files/index.html.j2
       dest: /usr/share/tomcat/webapps/ROOT/index.html
       mode: 0644
 
@@ -77,7 +77,7 @@
   tasks:
   - name: copy static index.html to tomcat webapps/ansible/index.html
     template:
-      src: index.html.app1
+      src: ./tta-files/index.html.app1
       dest: /usr/share/tomcat/webapps/ansible/index.html
 
 - name: index.html on app 1
@@ -88,7 +88,7 @@
   tasks:
   - name: copy static index.html to tomcat webapps/ansible/index.html
     template:
-      src: index.html.app2
+      src: ./tta-files/index.html.app2
       dest: /usr/share/tomcat/webapps/ansible/index.html
 
 - name: deploy postgres
@@ -100,28 +100,31 @@
   - name: install progress
     command: "yum install -y postgresql-server"
 
-  #- name: install postgres
-  #  yum:
-  #    name: postgresql-server
-  #    state: latest
+  - name: install postgres
+    yum:
+      name: postgresql-server
+      state: latest
+	  
   - name: enable apache at boot
     service:
       name: postgresql
       enabled: yes
-  - name: tell user to finish setting up postgres
-    debug:
-      msg: "Either uncomment the postgres setup or manually login and initialize"
+#  - name: tell user to finish setting up postgres
+#    debug:
+#      msg: "Either uncomment the postgres setup or manually login and initialize"
 
  # only run the next 2 tasks once!
-#  - name: initilize postgres
-#    command: postgresql-setup initdb
-#  - name: initilize postgres some more
-#    command: chkconfig postgresql on
+  - name: initilize postgres
+    command: postgresql-setup initdb
+  - name: initilize postgres some more
+    command: chkconfig postgresql on
+	
   - name: start postgres
     service:
       name: postgresql.service
       state: started
-
+	  
+##############################
 - name: deploy apache
   hosts: apps
   gather_facts: false
@@ -132,11 +135,13 @@
     yum:
       name: httpd
       state: latest
+	  
   - name: enable apache at boot
     service:
       name: httpd
       enabled: yes
-#  - name: start apache
-#    service:
-#      name: httpd
-#      state: started
+	  
+  - name: start apache
+    service:
+      name: httpd
+      state: started

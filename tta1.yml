@@ -5,7 +5,7 @@
   become: true
 
 - name: Deploy haproxy
-  hosts: frontends
+  hosts: all
   gather_facts: false # remove later! speeds up testing
   become: true
 
@@ -13,10 +13,14 @@
   - name: http
     package:
       name: httpie
+      enablerepo: "epel,rhel-7-server-e4s-rpms,rhel-7-server-e4s-optional-rpms"
       state: latest
   - name: install HAProxy
-    yum:
-      name=haproxy state=latest
+    package:
+      name: haproxy
+      enablerepo: "epel,rhel-7-server-e4s-rpms,rhel-7-server-e4s-optional-rpms"
+      state: latest
+      
   - name: enable HAProxy
     service:
       name: haproxy
