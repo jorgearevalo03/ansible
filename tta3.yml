@@ -1,0 +1,29 @@
+---
+- name: Three tier app
+  hosts: all
+  gather_facts: false # remove later! speeds up testing
+  become: true
+
+- name: Deploy apache
+  hosts: apps
+  gather_facts: false
+  become: true
+  tasks:
+  
+  - name: install apache
+    package:
+      name: httpd
+      state: latest
+	  
+  - name: enable apache at boot
+    service:
+      name: httpd
+      enabled: yes
+	  
+  - name: start apache
+    service:
+      name: httpd
+      state: started
+
+
+...
