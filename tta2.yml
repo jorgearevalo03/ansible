@@ -1,0 +1,9 @@
+---
+- name: Three tier app
+  hosts: all
+  gather_facts: false # remove later! speeds up testing
+  become: true
+
+
+
+...
