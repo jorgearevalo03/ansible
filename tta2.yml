@@ -88,11 +88,11 @@
       state: started
  
   - name: Firewall Config
-  - systemd: 
+    systemd: 
       name: firewalld
       state: started
       
-  - firewalld:
+    firewalld:
       port: 8080/tcp
       permanent: true
       state: enabled

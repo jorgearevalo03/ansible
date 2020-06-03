@@ -48,11 +48,11 @@
       state: restarted
       
   - name: Firewall Config
-  - systemd: 
+    systemd: 
       name: firewalld
       state: started
       
-  - firewalld:
+    firewalld:
       port: 80/tcp
       permanent: true
       state: enabled
