@@ -81,10 +81,10 @@
 # only run the next 2 tasks once!
   - name: Initilize postgres
     command: postgresql-setup initdb
-    	
+    
   - name: start postgres
     service:
       name: postgresql.service
       state: started
-	  
+      
 ...
