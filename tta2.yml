@@ -12,6 +12,4 @@
       debug:
         msg: "Hello  {{ rhsmuser }} {{ rhsmpoolid }} "
 
-
-
 ...
