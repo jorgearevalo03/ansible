@@ -1,8 +1,8 @@
 ---
 - name: Three tier app
-#  hosts: all
-#  gather_facts: false # remove later! speeds up testing
-#  become: true
+  hosts: all
+  gather_facts: false # remove later! speeds up testing
+  become: true
 
 - name: Deploy haproxy
   hosts: frontends
