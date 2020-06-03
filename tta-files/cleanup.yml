@@ -27,6 +27,8 @@
       file:
         path: /tmp/index.html
         state: absent
+        #archivos de configuracion
+        # /var/lib/pgsql/
         
     - name: Firewall Config
 #      systemd: 
@@ -40,5 +42,5 @@
         port: 8080/tcp
         permanent: true
         state: disabled
-          
+        
 ...
