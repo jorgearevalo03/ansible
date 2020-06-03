@@ -19,12 +19,7 @@
         regexp: 'Defaults\s*!requiretty'
         replace: '^Defaults requiretty'
         backup: yes
-
-    - name: Remove the repo file
-      file:
-        state: absent
-        path: /etc/yum.repos.d/open_three-tier-app.repo
-
+        
     - name: Remove base tools and three tier app packages
       yum:
         name: "{{ three_tier_packages }}"

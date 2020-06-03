@@ -1,15 +1,27 @@
 ---
 - name: Three tier app
-  hosts: all
-  gather_facts: false # remove later! speeds up testing
-  become: true
+#  hosts: all
+#  gather_facts: false # remove later! speeds up testing
+#  become: true
 
 - name: Deploy haproxy
   hosts: all
   gather_facts: false # remove later! speeds up testing
   become: true
-
   tasks:
+  
+  - name: Add mappings to /etc/hosts
+    blockinfile:
+      path: /etc/hosts
+      block: |
+        {{ item.ip }} {{ item.name }}
+      marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+    with_items:
+      - { name: appdb1, ip: 192.168.1.132 }
+      - { name: app1, ip: 192.168.1.135 }
+      - { name: app2, ip: 192.168.1.136 }
+      - { name: frontend1, ip: 192.168.1.137 }
+    
   - name: http
     package:
       name: httpie
@@ -33,5 +45,15 @@
     service:
       name: haproxy
       state: restarted
-
+      
+  - name: Firewall Config
+  - systemd: 
+      name: firewalld
+      state: started
+      
+  - firewalld:
+      port: 8080/tcp
+      permanent: true
+      state: enabled
+      
 ...

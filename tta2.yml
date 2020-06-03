@@ -9,7 +9,7 @@
   gather_facts: false
   become: true
   tasks:
-  
+
   - name: Install tomcat
     package:
       name: tomcat
