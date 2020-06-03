@@ -10,9 +10,7 @@
       - haproxy
       - tomcat
       - postgresql-server
-
   tasks:
-
 #    - name: reverse the enabling of sudo without tty for some ansible commands
 #      replace:
 #        path: /etc/sudoers
@@ -30,18 +28,18 @@
         path: /tmp/index.html
         state: absent
 
-- name: Firewall Config
-  - systemd: 
-      name: firewalld
-      state: started
-      
-  - firewalld:
-      port: 80/tcp
-      permanent: true
-      state: disabled
-  - firewalld:
-      port: 8080/tcp
-      permanent: true
-      state: disabled
-      
+    - name: Firewall Config
+      systemd: 
+        name: firewalld
+        state: started
+          
+      firewalld:
+        port: 80/tcp
+        permanent: true
+        state: disabled
+      firewalld:
+        port: 8080/tcp
+        permanent: true
+        state: disabled
+          
 ...
