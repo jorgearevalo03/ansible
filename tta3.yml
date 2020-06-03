@@ -10,17 +10,17 @@
   become: true
   tasks:
   
-  - name: install apache
+  - name: Install apache
     package:
       name: httpd
       state: latest
       
-  - name: enable apache at boot
+  - name: Enable apache at boot
     service:
       name: httpd
       enabled: yes
       
-  - name: start apache
+  - name: Start apache
     service:
       name: httpd
       state: started
