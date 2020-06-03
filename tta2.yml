@@ -8,85 +8,77 @@
   hosts: apps
   gather_facts: false
   become: true
-
   tasks:
   
-  - name: install tomcat
+  - name: Install tomcat
     package:
       name: tomcat
       state: latest
-  - name: enable tomcat at boot
+  - name: Enable tomcat at boot
     service:
       name: tomcat
       enabled: yes
 
-  - name: create ansible tomcat directory
+  - name: Create ansible tomcat directory
     file:
       path: /usr/share/tomcat/webapps/ansible
       state: directory
 
-  - name: copy static index.html to tomcat webapps/ansible/index.html
+  - name: Copy static index.html to tomcat webapps/ansible/index.html
     template:
       src: ./tta-files/index.html.j2
       dest: /usr/share/tomcat/webapps/ansible/index.html
       mode: 0644
 
-  - name: start tomcat
+  - name: Start tomcat
     service:
       name: tomcat
       state: started
 
 
 
-- name: index.html on app 1
+- name: Set Index.html on app 1
   hosts: app1
   gather_facts: false
   become: true
-
   tasks:
-  - name: copy static index.html to tomcat webapps/ansible/index.html
+  
+  - name: Copy static index.html to tomcat webapps/ansible/index.html
     template:
       src: ./tta-files/index.html.app1
       dest: /usr/share/tomcat/webapps/ansible/index.html
 
-- name: index.html on app 1
+- name: Set Index.html on app 2
   hosts: app2
   gather_facts: false
   become: true
-
   tasks:
+  
   - name: copy static index.html to tomcat webapps/ansible/index.html
     template:
       src: ./tta-files/index.html.app2
       dest: /usr/share/tomcat/webapps/ansible/index.html
 
 
-
-- name: deploy postgres
-  hosts: apps
+- name: Deploy postgres
   gather_facts: false
   become: true
   hosts: appdbs
   tasks:
+  
   - name: Install Postgresql-server
     package:
       name: postgresql-server
       state: latest
 	  
-  - name: enable apache at boot
+  - name: Enable postgresql at boot
     service:
       name: postgresql
       enabled: yes
-#  - name: tell user to finish setting up postgres
-#    debug:
-#      msg: "Either uncomment the postgres setup or manually login and initialize"
 
- # only run the next 2 tasks once!
-  - name: initilize postgres
+  - name: Initilize postgres
     command: postgresql-setup initdb
-  - name: initilize postgres some more
-    command: chkconfig postgresql on
-	
+    	
   - name: start postgres
     service:
       name: postgresql.service
