@@ -25,7 +25,8 @@
   - name: Enable Repos.
     shell: |
             subscription-manager repos --disable=*
-            subscription-manager repos --enable={{ repobase }} --enable={{ reposcl }} --enable={{ repoextras }} --enable={{ repotta1 }} --enable={{ repotta2 }}
+            subscription-manager repos --enable={{ repobase }} --enable={{ reposcl }} --enable={{ repoextras }} 
+# --enable={{ repotta1 }} --enable={{ repotta2 }}
     when:  ansible_os_family == "RedHat" and ansible_distribution_major_version|int >= 7
 
 # https://docs.ansible.com/ansible/latest/modules/get_url_module.html
