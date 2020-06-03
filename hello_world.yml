@@ -1,5 +1,5 @@
 - name: Hello World Sample
-  hosts: frontend1
+  hosts: apps
   tasks:
     - name: Hello Message
       debug:
