@@ -5,11 +5,12 @@
 #  become: true
 
 - name: Deploy haproxy
-  hosts: all
+  hosts: frontends
   gather_facts: false # remove later! speeds up testing
   become: true
   tasks:
-  
+
+# https://docs.ansible.com/ansible/2.5/modules/blockinfile_module.html  
   - name: Add mappings to /etc/hosts
     blockinfile:
       path: /etc/hosts
@@ -52,7 +53,7 @@
       state: started
       
   - firewalld:
-      port: 8080/tcp
+      port: 80/tcp
       permanent: true
       state: enabled
       

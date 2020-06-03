@@ -86,5 +86,15 @@
     service:
       name: postgresql.service
       state: started
+ 
+  - name: Firewall Config
+  - systemd: 
+      name: firewalld
+      state: started
       
+  - firewalld:
+      port: 80/tcp
+      permanent: true
+      state: enabled
+       
 ...
