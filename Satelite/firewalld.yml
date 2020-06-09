@@ -110,7 +110,7 @@
   
   - name: Masquerade yes on DMZ zone 
     firewalld:
-      masquerade: yes
+      masquerade: true
       state: enabled
       permanent: yes
       immediate: yes

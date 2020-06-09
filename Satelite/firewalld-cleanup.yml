@@ -110,7 +110,7 @@
   
   - name: Masquerade yes on DMZ zone 
     firewalld:
-      masquerade: yes
+      masquerade: true
       state: disabled
       permanent: yes
       immediate: yes
@@ -119,7 +119,7 @@
   - name: Drop Zone 
     firewalld:
       zone: drop
-      state: present
+      state: disabled
       permanent: yes
       immediate: yes
       icmp_block_inversion: yes
@@ -127,7 +127,7 @@
   - name: Drop Zone block icmp 
     firewalld:
       zone: drop
-      state: present
+      state: disabled
       permanent: yes
       immediate: yes
       icmp_block: echo-request
