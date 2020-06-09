@@ -116,13 +116,6 @@
       immediate: yes
       zone: dmz
   
-  - name: Custome Zone
-    firewalld:
-      zone: custom
-      state: present
-      permanent: yes
-      immediate: yes
-  
   - name: Drop Zone 
     firewalld:
       zone: drop
