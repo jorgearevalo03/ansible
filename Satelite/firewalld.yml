@@ -9,11 +9,11 @@
       permanent: true
       immediate: yes
       state: enabled
-  # - firewalld:
-      # port: 443/tcp
-      # permanent: true
-      # immediate: yes
-      # state: enabled
+  - firewalld:
+      port: 443/tcp
+      permanent: true
+      immediate: yes
+      state: enabled
   - name: puerto 5647/tcp
     firewalld:
       port: 5647/tcp
