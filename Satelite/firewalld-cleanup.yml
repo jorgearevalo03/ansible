@@ -1,0 +1,42 @@
+---
+- hosts: frontends
+  remote_user: root
+  tasks: 
+  - systemd: state=started name=firewalld
+  - firewalld:
+      port: 80/tcp
+      permanent: true
+      state: disabled
+  - firewalld:
+      port: 443/tcp
+      permanent: true
+      state: disabled
+  - firewalld:
+      port: 5647/tcp
+      permanent: true
+      state: disabled
+  - firewalld:
+      port: 8000/tcp
+      permanent: true
+      state: disabled
+  - firewalld:
+      port: 8140/tcp
+      permanent: true
+      state: disabled
+  - firewalld:
+      port: 53/tcp
+      permanent: true
+      state: disabled
+  - firewalld:
+      port: 53/udp
+      permanent: true
+      state: disabled
+  - firewalld:
+      port: 67/udp
+      permanent: true
+      state: disabled
+  - firewalld:
+      port: 68/udp
+      permanent: true
+      state: disabled
+...
