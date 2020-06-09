@@ -3,7 +3,7 @@
   remote_user: root
   tasks: 
   - systemd: state=started name=firewalld
-    - firewalld:
+  - firewalld:
       port: 80/tcp
       permanent: true
       immediate: yes
@@ -50,82 +50,82 @@
       state: enabled
 #################################################################################################################### mixed
   - firewalld:
-    service: https
-    permanent: yes
-    immediate: yes
-    state: enabled
+      service: https
+      permanent: yes
+      immediate: yes
+      state: enabled
 
-- firewalld:
-    port: 8081/tcp
-    permanent: yes
-    immediate: yes
-    state: disabled
-
-- firewalld:
-    port: 161-162/udp
-    permanent: yes
-    immediate: yes
-    state: enabled
-
-- firewalld:
-    zone: dmz
-    service: http
-    permanent: yes
-    immediate: yes
-    state: enabled
-
-- firewalld:
-    rich_rule: rule service name="ftp" audit limit value="1/m" accept
-    permanent: yes
-    immediate: yes
-    state: enabled
-
-- firewalld:
-    source: 192.168.1.0/24
-    zone: internal
-    state: enabled
-
-- firewalld:
-    zone: trusted
-    interface: enp0s3
-    permanent: yes
-    immediate: yes
-    state: enabled
-
-- firewalld:
-    masquerade: yes
-    state: enabled
-    permanent: yes
-    immediate: yes
-    zone: dmz
-
-- firewalld:
-    zone: custom
-    state: present
-    permanent: yes
-    immediate: yes
-
-- firewalld:
-    zone: drop
-    state: present
-    permanent: yes
-    immediate: yes
-    icmp_block_inversion: yes
-
-- firewalld:
-    zone: drop
-    state: present
-    permanent: yes
-    immediate: yes
-    icmp_block: echo-request
-
-- name: Redirect port 443 to 8443 with Rich Rule
-  firewalld:
-    rich_rule: rule family=ipv4 forward-port port=443 protocol=tcp to-port=8443
-    zone: public
-    permanent: yes
-    immediate: yes
-    state: enabled
+  - firewalld:
+      port: 8081/tcp
+      permanent: yes
+      immediate: yes
+      state: disabled
+  
+  - firewalld:
+      port: 161-162/udp
+      permanent: yes
+      immediate: yes
+      state: enabled
+  
+  - firewalld:
+      zone: dmz
+      service: http
+      permanent: yes
+      immediate: yes
+      state: enabled
+  
+  - firewalld:
+      rich_rule: rule service name="ftp" audit limit value="1/m" accept
+      permanent: yes
+      immediate: yes
+      state: enabled
+  
+  - firewalld:
+      source: 192.168.1.0/24
+      zone: internal
+      state: enabled
+  
+  - firewalld:
+      zone: trusted
+      interface: enp0s3
+      permanent: yes
+      immediate: yes
+      state: enabled
+  
+  - firewalld:
+      masquerade: yes
+      state: enabled
+      permanent: yes
+      immediate: yes
+      zone: dmz
+  
+  - firewalld:
+      zone: custom
+      state: present
+      permanent: yes
+      immediate: yes
+  
+  - firewalld:
+      zone: drop
+      state: present
+      permanent: yes
+      immediate: yes
+      icmp_block_inversion: yes
+  
+  - firewalld:
+      zone: drop
+      state: present
+      permanent: yes
+      immediate: yes
+      icmp_block: echo-request
+  
+  - name: Redirect port 443 to 8443 with Rich Rule
+    firewalld:
+      rich_rule: rule family=ipv4 forward-port port=443 protocol=tcp to-port=8443
+      zone: public
+      permanent: yes
+      immediate: yes
+      state: enabled
 
 
 ...
