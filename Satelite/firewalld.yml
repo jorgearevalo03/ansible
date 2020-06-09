@@ -119,9 +119,9 @@
   - name: Drop Zone 
     firewalld:
       zone: drop
-      state: present
+      state: enabled
       permanent: yes
-      # immediate: yes
+      immediate: yes
       icmp_block_inversion: yes
   
   - name: Drop Zone block icmp 
