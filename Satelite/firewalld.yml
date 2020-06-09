@@ -3,7 +3,8 @@
   remote_user: root
   tasks: 
   - systemd: state=started name=firewalld
-  - firewalld:
+  - name: Puerto 80/tcp
+    firewalld:
       port: 80/tcp
       permanent: true
       immediate: yes
