@@ -14,107 +14,125 @@
       # permanent: true
       # immediate: yes
       # state: enabled
-  - firewalld:
+  - name: puerto 5647/tcp
+    firewalld:
       port: 5647/tcp
       permanent: true
       immediate: yes
       state: enabled
-  - firewalld:
+  - name: Puerto 8000/tcp
+    firewalld:
       port: 8000/tcp
       permanent: true
       immediate: yes
       state: enabled
-  - firewalld:
+  - name: Puerto 8140/tcp
+    firewalld:
       port: 8140/tcp
       permanent: true
       immediate: yes
       state: enabled
-  - firewalld:
+  - name: Puerto 53/tcp
+    firewalld:
       port: 53/tcp
       permanent: true
       immediate: yes
       state: enabled
-  - firewalld:
+  - name: Puerto 53/tcp 
+    firewalld:
       port: 53/udp
       permanent: true
       immediate: yes
       state: enabled
-  - firewalld:
+  - name: Puerto 67/tcp 
+    firewalld:
       port: 67/udp
       permanent: true
       immediate: yes
       state: enabled
-  - firewalld:
+  - name: Puerto 68/tcp 
+    firewalld:
       port: 68/udp
       permanent: true
       immediate: yes
       state: enabled
 #################################################################################################################### mixed
-  - firewalld:
+  - name: Puerto https 
+    firewalld:
       service: https
       permanent: yes
       immediate: yes
       state: enabled
 
-  - firewalld:
+  - name: Puerto 8081/tcp 
+    firewalld:
       port: 8081/tcp
       permanent: yes
       immediate: yes
       state: disabled
   
-  - firewalld:
+  - name: Puerto 161-162/udp 
+    firewalld:
       port: 161-162/udp
       permanent: yes
       immediate: yes
       state: enabled
   
-  - firewalld:
+  - name: Zona DMZ 
+    firewalld:
       zone: dmz
       service: http
       permanent: yes
       immediate: yes
       state: enabled
   
-  - firewalld:
+  - name: FTP rich rule
+    firewalld:
       rich_rule: rule service name="ftp" audit limit value="1/m" accept
       permanent: yes
       immediate: yes
       state: enabled
   
-  - firewalld:
+  - name: Net 
+    firewalld:
       source: 192.168.1.0/24
       permanent: yes
       zone: internal
       state: enabled
   
-  - firewalld:
+  - name: Trusted Interface 
+    firewalld:
       zone: trusted
       interface: enp0s3
       permanent: yes
       immediate: yes
       state: enabled
   
-  - firewalld:
+  - name: Masquerade yes on DMZ zone 
+    firewalld:
       masquerade: yes
       state: enabled
       permanent: yes
       immediate: yes
       zone: dmz
   
-  - firewalld:
+  - name: Custome Zone
+    firewalld:
       zone: custom
       state: present
       permanent: yes
       immediate: yes
   
-  - firewalld:
+  - name: Drop Zone 
+    firewalld:
       zone: drop
       state: present
       permanent: yes
       immediate: yes
       icmp_block_inversion: yes
   
-  - firewalld:
+  - name: Drop Zone block icmp 
+    firewalld:
       zone: drop
       state: present
       permanent: yes
