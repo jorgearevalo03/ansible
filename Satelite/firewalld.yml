@@ -121,7 +121,7 @@
       zone: drop
       state: present
       permanent: yes
-      immediate: yes
+      # immediate: yes
       icmp_block_inversion: yes
   
   - name: Drop Zone block icmp 
