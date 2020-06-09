@@ -127,7 +127,7 @@
   - name: Drop Zone block icmp 
     firewalld:
       zone: drop
-      state: present
+      state: enabled
       permanent: yes
       immediate: yes
       icmp_block: echo-request
