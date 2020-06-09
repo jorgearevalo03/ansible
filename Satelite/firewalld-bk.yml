@@ -6,46 +6,37 @@
   - firewalld:
       port: 80/tcp
       permanent: true
-      immediate: yes
       state: enabled
   - firewalld:
       port: 443/tcp
       permanent: true
-      immediate: yes
       state: enabled
   - firewalld:
       port: 5647/tcp
       permanent: true
-      immediate: yes
       state: enabled
   - firewalld:
       port: 8000/tcp
       permanent: true
-      immediate: yes
       state: enabled
   - firewalld:
       port: 8140/tcp
       permanent: true
-      immediate: yes
       state: enabled
   - firewalld:
       port: 53/tcp
       permanent: true
-      immediate: yes
       state: enabled
   - firewalld:
       port: 53/udp
       permanent: true
-      immediate: yes
       state: enabled
   - firewalld:
       port: 67/udp
       permanent: true
-      immediate: yes
       state: enabled
   - firewalld:
       port: 68/udp
       permanent: true
-      immediate: yes
       state: enabled
 ...
