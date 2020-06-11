@@ -1,137 +1,131 @@
 ---
-- hosts: frontends
+- hosts: frontend1
   remote_user: root
-  tasks: 
+  tasks:
   - systemd: state=started name=firewalld
-  - name: Puerto 80/tcp
+
+  - name : Configure firewall to allow imap/imaps and submission services
     firewalld:
-      port: 80/tcp
-      permanent: true
+      service: "{{ item }}"
+      permanent: yes
       immediate: yes
       state: enabled
-  - firewalld:
-      port: 443/tcp
-      permanent: true
-      immediate: yes
-      state: enabled
-  - name: puerto 5647/tcp
+    loop:
+      - imap
+      - imaps
+      - smtp-submission
+      - ftp
+      - telnet
+  - name : Configure firewall to allow multiple and submission services
     firewalld:
-      port: 5647/tcp
-      permanent: true
+      port: "{{ item }}"
+      permanent: yes
       immediate: yes
       state: enabled
-  - name: Puerto 8000/tcp
-    firewalld:
-      port: 8000/tcp
-      permanent: true
-      immediate: yes
-      state: enabled
-  - name: Puerto 8140/tcp
-    firewalld:
-      port: 8140/tcp
-      permanent: true
-      immediate: yes
-      state: enabled
-  - name: Puerto 53/tcp
-    firewalld:
-      port: 53/tcp
-      permanent: true
-      immediate: yes
-      state: enabled
-  - name: Puerto 53/tcp 
-    firewalld:
-      port: 53/udp
-      permanent: true
-      immediate: yes
-      state: enabled
-  - name: Puerto 67/tcp 
+    loop:
+      - 80/tcp
+      - 443/tcp
+      - 5647/tcp
+      - 8000/tcp
+      - 8080/tcp
+      - 80/udp
+      - 53/tcp
+      - 53/udp
+  - name: Puerto 67/tcp
     firewalld:
       port: 67/udp
       permanent: true
       immediate: yes
       state: enabled
-  - name: Puerto 68/tcp 
+  - name: Puerto 68/tcp
     firewalld:
       port: 68/udp
       permanent: true
       immediate: yes
       state: enabled
+  - name: Puerto 64000-65000/tcp
+    firewalld:
+      port: 64000-65000/tcp
+      permanent: true
+      immediate: yes
+      state: enabled
+
 #################################################################################################################### mixed
-  - name: Puerto https 
+  - name: Puerto https
     firewalld:
       service: https
       permanent: yes
       immediate: yes
       state: enabled
 
-  - name: Puerto 8081/tcp 
+  - name: Puerto 8081/tcp
     firewalld:
       port: 8081/tcp
       permanent: yes
       immediate: yes
       state: disabled
-  
-  - name: Puerto 161-162/udp 
+
+  - name: Puerto 161-162/udp
     firewalld:
       port: 161-162/udp
       permanent: yes
       immediate: yes
       state: enabled
-  
-  - name: Zona DMZ 
+
+  - name: Zona DMZ
     firewalld:
       zone: dmz
       service: http
       permanent: yes
       immediate: yes
       state: enabled
-  
+
   - name: FTP rich rule
     firewalld:
       rich_rule: rule service name="ftp" audit limit value="1/m" accept
       permanent: yes
       immediate: yes
       state: enabled
-  
-  - name: Net 
+
+  - name: Net
     firewalld:
       source: 192.168.1.0/24
       permanent: yes
       zone: internal
       state: enabled
-  
-  - name: Trusted Interface 
+
+  - name: Trusted Interface
     firewalld:
       zone: trusted
       interface: enp0s3
       permanent: yes
       immediate: yes
       state: enabled
-  
-  - name: Masquerade yes on DMZ zone 
+
+  - name: Masquerade yes on DMZ zone
     firewalld:
       masquerade: true
       state: enabled
       permanent: yes
       immediate: yes
       zone: dmz
-  
-  - name: Drop Zone 
+
+  - name: Drop Zone
     firewalld:
       zone: drop
       state: enabled
       permanent: yes
       immediate: yes
       icmp_block_inversion: yes
-  
-  - name: Drop Zone block icmp 
+
+  - name: Drop Zone block icmp
     firewalld:
       zone: drop
       state: enabled
       permanent: yes
       immediate: yes
       icmp_block: echo-request
-  
+
   - name: Redirect port 443 to 8443 with Rich Rule
     firewalld:
       rich_rule: rule family=ipv4 forward-port port=443 protocol=tcp to-port=8443
