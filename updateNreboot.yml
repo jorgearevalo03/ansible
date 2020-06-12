@@ -1,4 +1,4 @@
-- hosts: app1
+- hosts: app2
   tasks:
     - name: upgrade all packages
       yum:
