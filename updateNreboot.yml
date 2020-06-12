@@ -2,18 +2,19 @@
   tasks:
    - name: upgrade all packages
      yum:
-       name: "{{ PACKAGE }}"
+       #name: '*'
+       name: kernel
        state: latest
        
-   - name: Check for Kernel Update.
-       shell: LAST_KERNEL=$(rpm -q --last kernel | awk 'NR==1{sub(/kernel-/,""); print $1}'); CURRENT_KERNEL=$(uname -r); if [ $LAST_KERNEL != $CURRENT_KERNEL ]; then echo 'reboot'; else echo 'no'; fi
+   - name: Check for reboot hint.
+     shell: LAST_KERNEL=$(rpm -q --last kernel | awk 'NR==1{sub(/kernel-/,""); print $1}'); CURRENT_KERNEL=$(uname -r); if [ $LAST_KERNEL != $CURRENT_KERNEL ]; then echo 'reboot'; else echo 'no'; fi
      ignore_errors: 'true'
      register: task_result
 
     - name: Reboot immediately if there was a change.
-        shell: "sleep 5 && reboot"
-        async: 1
-        poll: 0
+      shell: "sleep 5 && reboot"
+      async: 1
+      poll: 0
       when: task_result is changed
 
     - name: Wait for the reboot to complete if there was a change.
@@ -23,4 +24,3 @@
         delay: 10
         timeout: 300
       when: task_result is changed
-...
