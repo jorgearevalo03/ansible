@@ -1,9 +1,9 @@
-- hosts: app2
+- hosts: frontend1
   tasks:
     - name: upgrade all packages
       yum:
         #name: '*'
-        name: kernel
+        name: "{{ MY_PACKAGE }}"
         state: latest
     - name: Check for reboot hint.
       shell: LAST_KERNEL=$(rpm -q --last kernel | awk 'NR==1{sub(/kernel-/,""); print $1}'); CURRENT_KERNEL=$(uname -r); if [ $LAST_KERNEL != $CURRENT_KERNEL ]; then echo 'reboot'; else echo 'no'; fi
