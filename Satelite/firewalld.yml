@@ -1,8 +1,12 @@
 ---
-- hosts: frontend1
+- hosts: frontends
   remote_user: root
   tasks:
-  - systemd: state=started name=firewalld
+  - name : Habilita Firewall
+    systemd:
+      state: started
+      name: firewalld.service
+      enabled: yes
 
   - name : Configure firewall to allow imap/imaps and submission services
     firewalld:
@@ -16,7 +20,7 @@
       - smtp-submission
       - ftp
       - telnet
-  - name : Configure firewall to allow multiple and submission services
+  - name : Configure firewall to allow multiple
     firewalld:
       port: "{{ item }}"
       permanent: yes
