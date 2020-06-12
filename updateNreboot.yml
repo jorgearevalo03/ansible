@@ -3,7 +3,6 @@
    - name: upgrade all packages
      yum:
        name: '*'
-#       name: kernel
        state: latest
        
    - name: Check for Kernel Update.
