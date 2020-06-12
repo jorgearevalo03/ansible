@@ -4,7 +4,7 @@
      yum:
 #       name: '*'
 #       name: kernel
-       name: {{ PACKAGE }}
+       name: "{{ PACKAGE }}"
        state: latest
        
    - name: Check for Kernel Update.
