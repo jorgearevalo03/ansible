@@ -2,7 +2,9 @@
   tasks:
    - name: upgrade all packages
      yum:
-       name: '*'
+#       name: '*'
+#       name: kernel
+       name: {{ PACKAGE }}
        state: latest
        
    - name: Check for Kernel Update.
