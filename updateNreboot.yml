@@ -9,7 +9,6 @@
     - name: Check if new Kernel was installed
       shell: LAST_KERNEL=$(rpm -q --last kernel | awk 'NR==1{sub(/kernel-/,""); print $1}'); CURRENT_KERNEL=$(uname -r); if [ $LAST_KERNEL != $CURRENT_KERNEL ]; then echo 'reboot'; else echo 'no'; fi
       ignore_errors: 'true'
-      #register: task_result
       register: reboot_hint
 
     - name: Reboot immediately if needed.
@@ -17,7 +16,6 @@
       async: 1
       poll: 0
       register: task_result
-      #when: task_result is changed
       when: reboot_hint.stdout.find("reboot") != -1
     
     - name: Wait for the reboot to complete if there was a change.
