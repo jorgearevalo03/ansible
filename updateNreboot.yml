@@ -1,4 +1,4 @@
-- hosts: appdb1
+- hosts: app2
   tasks:
     - name: Update Packages
       yum:
