@@ -6,7 +6,7 @@
     systemd:
       state: started
       name: firewalld.service
-      disabled: yes
+      enabled: yes
 
   - name : Configure firewall to allow imap/imaps and submission services
     firewalld:
