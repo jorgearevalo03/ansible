@@ -3,5 +3,5 @@
   tasks:
     - name: Hello Message
       debug:
-        msg: "Hello  {{ rhsmuser }} {{ rhsmpoolid }} "
-
+#        msg: "Hello  {{ rhsmuser }} {{ rhsmpoolid }} "
+        msg: System {{ inventory_hostname }} has gateway {{ ansible_default_ipv4.gateway }}
