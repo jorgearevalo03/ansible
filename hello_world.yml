@@ -1,7 +1,20 @@
-- name: Hello World Sample
-  hosts: apps
+---
+- name: OS recognition from facts
+  hosts: test
   tasks:
-    - name: Hello Message
+    - name: Printing facts or vars
       debug:
 #        msg: "Hello  {{ rhsmuser }} {{ rhsmpoolid }} "
-        msg: System {{ inventory_hostname }} has gateway {{ ansible_default_ipv4.gateway }}
+#        msg: System {{ inventory_hostname }} has gateway {{ ansible_default_ipv4.gateway }}
+         msg: System {{ inventory_hostname }} has {{ ansible_distribution }} OS with kernel {{ ansible_kernel }} from OS Family {{ ansible_os_family }}
+
+    - name: Only If RedHat Family
+      debug:
+         msg: System {{ inventory_hostname }} has {{ ansible_distribution }} OS with kernel {{ ansible_kernel }} from OS Family {{ ansible_os_family }}
+      when: ansible_os_family == 'RedHat'
+
+    - name: Only If Solaris Family
+      debug:
+         msg: System {{ inventory_hostname }} has {{ ansible_distribution }} OS with kernel {{ ansible_kernel }} from OS Family {{ ansible_os_family }}
+      when: ansible_os_family == 'Solaris'
+...
