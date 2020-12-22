@@ -1,18 +1,18 @@
 ---
 - name: OS recognition from facts
   hosts: all
-  remote_user: cajero
-  become: true
-
 
   tasks:
+  - name: ping test
+    win_ping:
+
   - name: Touch a file (creates if not present, updates modification time if present)
     win_file:
       path: C:\foo.conf
-      state: touch   
-      
+      state: touch
+
   - name: Remove a file, if present
     win_file:
       path: C:\foo.conf
-      state: absent      
+      state: absent
 ...
