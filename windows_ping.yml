@@ -2,7 +2,7 @@
 - name: OS recognition from facts
   hosts: all
   remote_user: cajero
-  ansible_password: Passw0rd
+
 
   tasks:
   - name: ping pong
