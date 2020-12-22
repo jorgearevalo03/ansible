@@ -2,6 +2,7 @@
 - name: OS recognition from facts
   hosts: all
   remote_user: cajero
+  become: true
 
 
   tasks:
