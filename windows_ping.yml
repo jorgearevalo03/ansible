@@ -3,7 +3,10 @@
   hosts: all
 
   tasks:
-  - name: Example from an Ansible Playbook
-    win_ping:
-      
+#  - name: Example from an Ansible Playbook
+#    win_ping:
+  - name: Touch a file (creates if not present, updates modification time if present)
+    win_file:
+      path: C:\foo.conf
+      state: touch    
 ...
