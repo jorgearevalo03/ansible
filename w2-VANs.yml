@@ -1,0 +1,64 @@
+---
+- name: OS recognition from facts
+  hosts: all
+  gather_facts: false
+
+  tasks:
+  - name: ping test
+    win_ping:
+
+  - name: Touch a file (creates if not present, updates modification time if present)
+    win_file:
+      path: C:\foo.conf
+      state: touch
+
+  - name: Remove a file, if present
+    win_file:
+      path: C:\foo.conf
+      state: absent
+
+  - name: Change the hostname 
+    win_hostname:
+      name: "VLA000{{ HOSTNAMENUMBER }}r01"
+    register: res
+
+  - name: Reboot
+    win_reboot:
+    when: res.reboot_required
+    
+  - name: Install hotfix without validating the KB and Identifier
+    win_hotfix:
+      source: C:\Users\cajero\March, 2017 Security Only Quality Update for Windows 7 (KB4012212)\X86-all-windows6.1-kb4012212-x86_6bb04d3971bb58ae4bac44219e7169812914df3f.msu
+      state: present
+    register: hotfix_install
+
+  - win_reboot:
+    when: hotfix_install.reboot_required
+  
+  - name: Disable firewall for Domain, Public and Private profiles
+    win_firewall:
+      state: disabled
+      profiles:
+      - Domain
+      - Private
+      - Public
+    tags: disable_firewall
+    
+  - name: Set service startup mode to disabled and ensure it is stopped
+    win_service:
+      name: wuauserv
+      start_mode: disabled        
+      state: stopped   
+
+  - name: Copy files
+    win_copy:
+      src: /shared/Disco-C-Caja.zip
+      dest: C:\Users\cajero\
+  
+  - name: Recursively decompress GZ files in ApplicationLogs.zip
+    win_unzip:
+      src: "C:\\Users\\cajero\\Downloads\\Disco\ C\ Caja.zip"
+      dest: C:\Users\cajero
+      recurse: yes
+      #delete_archive: yes 
+...
