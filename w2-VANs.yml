@@ -50,15 +50,32 @@
       start_mode: disabled        
       state: stopped   
 
-  - name: Copy files
-    win_copy:
-      src: /shared/Disco-C-Caja.zip
-      dest: C:\Users\cajero\
+#  - name: Copy files
+#    win_copy:
+#      src: /shared/Disco-C-Caja.zip
+#      dest: C:\Users\cajero\
   
-  - name: Recursively decompress GZ files in ApplicationLogs.zip
+  - name: Recursively decompress GZ files
     win_unzip:
       src: "C:\\Users\\cajero\\Downloads\\Disco\ C\ Caja.zip"
       dest: C:\Users\cajero
-      recurse: yes
-      #delete_archive: yes 
+      
+  - name: Recursively decompress GZ files
+    win_unzip:
+      src: "C:\\Users\\cajero\\Downloads\\Disco\ C\ Server.zip"
+      dest: C:\Users\cajero
+
+  - name: Copy a folder recursively where the source is on the remote host
+    win_copy:
+      src: C:\Users\cajero\Disco C Server\{{ item }}
+      dest: C:\
+      remote_src: yes
+    loop:
+      - ArchivosEntrada
+      - MSSQLDB
+      - PathFact
+      - PathFE
+      - Pos
+      - PosADV
+      - Skins 
 ...
