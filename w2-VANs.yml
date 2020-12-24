@@ -78,4 +78,19 @@
       - Pos
       - PosADV
       - Skins 
+
+#  - name: Copy a folder recursively where the source is on the remote host
+#    win_copy:
+#      src: C:\Users\cajero\Disco C Caja\{{ item }}
+#      dest: C:\
+#      remote_src: yes
+#    loop:
+#      - MSSQLDB
+#      - PathFact
+#      - PathFE
+#      - Pos
+#      - PosADV
+#      - Skins 
+      
+
 ...
