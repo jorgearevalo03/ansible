@@ -126,10 +126,20 @@
       remote_src: yes
 
   - name: Copy a folder recursively where the source is on the remote host
+### RARO... de otra forma no funciona...    
     win_copy:
-      src: C:\PosADV\Reemplazar version\System32
-      dest: C:\Windows
+      src: C:\PosADV\Reemplazar version\System32\{{ item }}
+      dest: C:\Windows\System32\
       remote_src: yes
+      force: yes
+    loop:
+      - ROS800.dll
+      - RosArsl.dll
+      - RosDM.dll
+      - RosExits.dll
+      - RosF.dll
+      - RosFacturacion.dll
+      - RosSkins.DLL
 
 C:\Archivos de programa\AdvancedSP\Frontend\Registrar.bat
 
