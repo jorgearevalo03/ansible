@@ -141,18 +141,37 @@
       - RosFacturacion.dll
       - RosSkins.DLL
 
-C:\Archivos de programa\AdvancedSP\Frontend\Registrar.bat
+
+  - name: Run script
+    win_command: cmd.exe C:\Program Files\AdvancedSP\Frontend\Registrar.bat
+    become: yes
+    become_method: runas
+    become_user: SYSTEM
+
+
+  - name: Remove directory structure
+    win_file:
+      path: C:\Program Files\AdvancedSP\Backend
+      state: absent
 
   - name: Copy a folder recursively where the source is on the remote host
     win_copy:
-      src: 
-      dest: 
+      src: C:\PosADV\Reemplazar version\AdvancedSP\Backend
+      dest: C:\Program files\AdvancedSP
       remote_src: yes
 
+  - name: Run script
+    win_command: cmd.exe C:\Program files\AdvancedSP\Backend\Registrar BO.bat
+    become: yes
+    become_method: runas
+    become_user: SYSTEM
 
 
-
-
+  - name: Run script
+    win_command: cmd.exe C:\PosADV\Reemplazar version\Frontend.reg
+    become: yes
+    become_method: runas
+    become_user: SYSTEM
 
 
 
