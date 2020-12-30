@@ -82,6 +82,12 @@
 
 ############################
 # INSTALACION DE PAQUETES
+# 36.- carpeta instalador ARSPOS y ejecutaremos el setup.contraseña: 5650009. usuario predefinido, instalación personalizada. En la ventana Seleccionar componentes seleccionaremos solamente las opciones Frontend, Backoffice y Componentes; Corporativo y MSDE SP4 no deben estar marcadas. 
+# carpeta llamada MSDE SP4, y ejecutaremos el setup que está dentro de la carpeta. Al momento de ejecutar el programa, Windows mostrará una advertencia que indica Este programa tiene problemas de compatibilidad conocidos. Aparecerá un botón de ejecutar programa, hay que dar clic dos veces en esa opción para que el programa se instale adecuadamente, ya que la ventana se abre dos veces.
+# 38.- REBOOT carpeta PosADV dentro de la carpeta raíz del disco C. Dentro de esa carpeta, hay un archivo llamado Setup_DBAMgr2k. Es preciso que se instale a través del Wizard, con todas las preferencias default. Al finalizar la instalación, el sistema requerirá un reinicio.
+# Servicios : El primero de ellos es configurar el servicio coordinador de transacciones distribuidas cambiándolo a Automático y después iniciarlo. Después, el servicio SQLSERVERAGENT debe ser cambiado a Automático y deber ser iniciado. Esto se logra dando clic derecho a "Manual" y luego en propiedades.
+# ejecutar DbaMGR2k y cambiar el nombre de la db a la que se va conectar (nuevo hostname)
+# 
 ############################
 
   - name: Set service startup mode to disabled and ensure it is stopped
@@ -112,6 +118,10 @@
 #       register: sqlcmd_out 
 # 
 ## sqlcmd NO acepta conexiones a SQL 2000  
+#############################
+
+############################
+#48.- ejecutar el app generador de licencia 
 ############################
 
   - name: Recursively decompress GZ files
@@ -173,11 +183,12 @@
     become_method: runas
     become_user: SYSTEM
 
-
-
-
-
-
+############################# ocupa interaccion humana.
+# 58.- se ocupa impresora conectada. 
+# 59.- ejecutar aplicativo para establecer configuracion
+# 69.- ejecutar aplicativo para establecer configuracion
+# 77.-  REBOOT instalar proxy con licencia (textO)
+############################
 
 
 ############################ Para CAJA 2 TBD      
