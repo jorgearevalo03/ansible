@@ -4,6 +4,22 @@
   gather_facts: false
 
   tasks:
+  
+    - name: ROLLBACK 1
+    win_service:
+      name: wuauserv
+      start_mode: enabled        
+      state: started 
+  - name: ROLLBACK 2
+    ##     "msg": "win_firewall requires Windows Management Framework 5 or higher.",
+    win_firewall:
+      state: enabled
+      profiles:
+      - Domain
+      - Private
+      - Public
+
+    
   - name: ping test
     win_ping:
 
@@ -28,8 +44,10 @@
 # tarda 4min después de llegar al Windows Login screen en VMWARE
 
   - name: Install hotfix without validating the KB and Identifier
+# ya no funciona...
     win_hotfix:
       source: C:\Users\cajero\March, 2017 Security Only Quality Update for Windows 7 (KB4012212)\X86-all-windows6.1-kb4012212-x86_6bb04d3971bb58ae4bac44219e7169812914df3f.msu
+      #source: "C:\\Users\\cajero\\March,\ 2017\ Security\ Only\ Quality\ Update\ for\ Windows\ 7\ (KB4012212)\\X86-all-windows6.1-kb4012212-x86_6bb04d3971bb58ae4bac44219e7169812914df3f.msu"
       state: present
     register: hotfix_install
 
@@ -37,6 +55,7 @@
     when: hotfix_install.reboot_required
   
   - name: Disable firewall for Domain, Public and Private profiles
+    ##     "msg": "win_firewall requires Windows Management Framework 5 or higher.",
     win_firewall:
       state: disabled
       profiles:
@@ -44,6 +63,7 @@
       - Private
       - Public
     tags: disable_firewall
+# Get-NetFirewallProfile -Profile Domain, Public, Private | Select-Object Name, Enabled
     
   - name: Set service startup mode to disabled and ensure it is stopped
     win_service:
@@ -66,7 +86,19 @@
       src: "C:\\Users\\cajero\\Downloads\\Disco\ C\ Server.zip"
       dest: C:\Users\cajero
 
+
+### TEST ONLY
+  - name: Set service startup mode to disabled and ensure it is stopped
+    win_service:
+      name: "{{ item }}"
+      start_mode: disabled        
+      state: stopped 
+    loop: 
+      - msdtc
+      - sqlserveragent
+
   - name: Copy a folder recursively where the source is on the remote host
+  #     "exception": "Excepción al llamar a \"Open\" con los argumentos \"4\": \"The process cannot access the file 'C:\\MSSQLDB\\Posbdat.mdf' because it is being used by another process.\"\r\nEn línea: 340 Carácter: 13\r\n+             $fp = [System.IO.File]::Open($path, [System.IO.Filemode]::Open, [Sys ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : NotSpecified: (:) [], ParentContainsErrorRecordException\r\n    + FullyQualifiedErrorId : IOException\r\n\r\nScriptStackTrace:\r\nen Get-FileChecksum, <sin archivo>: línea 340\r\nen Copy-File, <sin archivo>: línea 58\r\nen Copy-Folder, <sin archivo>: línea 125\r\nen <ScriptBlock>, <sin archivo>: línea 328\r\n",
     win_copy:
       src: C:\Users\cajero\Disco C Server\{{ item }}
       dest: C:\
