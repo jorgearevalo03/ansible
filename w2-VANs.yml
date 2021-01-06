@@ -33,6 +33,7 @@
       path: C:\foo.conf
       state: absent
 
+
   - name: Change the hostname 
     win_hostname:
       name: "VLA000{{ HOSTNAMENUMBER }}r01"
@@ -45,6 +46,7 @@
 
   - name: Install hotfix without validating the KB and Identifier
 # ya no funciona...
+# The DISM PS module needs to be installed, this can be done through the windows-adk chocolately package
     win_hotfix:
       source: C:\Users\cajero\March, 2017 Security Only Quality Update for Windows 7 (KB4012212)\X86-all-windows6.1-kb4012212-x86_6bb04d3971bb58ae4bac44219e7169812914df3f.msu
       #source: "C:\\Users\\cajero\\March,\ 2017\ Security\ Only\ Quality\ Update\ for\ Windows\ 7\ (KB4012212)\\X86-all-windows6.1-kb4012212-x86_6bb04d3971bb58ae4bac44219e7169812914df3f.msu"
@@ -54,17 +56,18 @@
   - win_reboot:
     when: hotfix_install.reboot_required
   
-  - name: Disable firewall for Domain, Public and Private profiles
-    ##     "msg": "win_firewall requires Windows Management Framework 5 or higher.",
-    win_firewall:
-      state: disabled
-      profiles:
-      - Domain
-      - Private
-      - Public
-    tags: disable_firewall
+#  - name: Disable firewall for Domain, Public and Private profiles
+#    ##     "msg": "win_firewall requires Windows Management Framework 5 or higher.",
+#    win_firewall:
+#      state: disabled
+#      profiles:
+#      - Domain
+#      - Private
+#      - Public
+#    tags: disable_firewall
+#https://powershell.org/forums/topic/problem-with-get-netfirewallprofile/
 # Get-NetFirewallProfile -Profile Domain, Public, Private | Select-Object Name, Enabled
-    
+# Netsh advfirewall show all state    
   - name: Set service startup mode to disabled and ensure it is stopped
     win_service:
       name: wuauserv
