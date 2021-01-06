@@ -10,14 +10,14 @@
       name: wuauserv
       start_mode: enabled        
       state: started 
-  - name: ROLLBACK 2
-    ##     "msg": "win_firewall requires Windows Management Framework 5 or higher.",
-    win_firewall:
-      state: enabled
-      profiles:
-      - Domain
-      - Private
-      - Public
+#  - name: ROLLBACK 2
+#    ##     "msg": "win_firewall requires Windows Management Framework 5 or higher.",
+#    win_firewall:
+#      state: enabled
+#      profiles:
+#      - Domain
+#      - Private
+#      - Public
 
     
   - name: ping test
@@ -68,6 +68,7 @@
 #https://powershell.org/forums/topic/problem-with-get-netfirewallprofile/
 # Get-NetFirewallProfile -Profile Domain, Public, Private | Select-Object Name, Enabled
 # Netsh advfirewall show all state    
+
   - name: Set service startup mode to disabled and ensure it is stopped
     win_service:
       name: wuauserv
@@ -78,6 +79,10 @@
 #    win_copy:
 #      src: /shared/Disco-C-Caja.zip
 #      dest: C:\Users\cajero\
+# <10.10.30.20> PUT "/shared/Disco-C-Caja.zip" TO "C:\Users\cajero\AppData\Local\Temp\ansible-tmp-1609970598.31-13-201587557723593\source"
+# [WARNING]: ERROR DURING WINRM SEND INPUT - attempting to recover: ReadTimeout
+# HTTPSConnectionPool(host='10.10.30.20', port=5986): Read timed out. (read
+# timeout=30)
   
   - name: Recursively decompress GZ files
     win_unzip:
@@ -89,8 +94,6 @@
       src: "C:\\Users\\cajero\\Downloads\\Disco\ C\ Server.zip"
       dest: C:\Users\cajero
 
-
-### TEST ONLY
   - name: Set service startup mode to disabled and ensure it is stopped
     win_service:
       name: "{{ item }}"
