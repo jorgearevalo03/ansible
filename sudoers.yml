@@ -1,0 +1,11 @@
+- name: Editar sudoers
+  hosts: 127.0.0.1
+
+  tasks:
+    - name: sudoers
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%ADMIN ALL='
+        line: '%ADMIN ALL=(ALL) NOPASSWD: ALL'
+        validate: '/usr/sbin/visudo -cf %s'
