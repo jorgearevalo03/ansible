@@ -1,3 +1,4 @@
+---
 - name: Editar sudoers
   hosts: 127.0.0.1
 
@@ -9,3 +10,11 @@
         regexp: '^%ADMIN ALL='
         line: '%ADMIN ALL=(ALL) NOPASSWD: ALL'
         validate: '/usr/sbin/visudo -cf %s'
+    
+    - name: display multiple file contents
+      debug: var=item
+      with_file:
+        - "/etc/sudoers"
+#        - "bar.txt"  # will be looked in files/ dir relative to play or in role
+#        - "/path/to/biz.txt"
+...
